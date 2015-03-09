@@ -1,6 +1,7 @@
 {
   "domains":[],
   "globals": {
+    "title": "notes of ninegene",
     "googleAnalytics": "UA-XXXXX-X"
   }
 }
