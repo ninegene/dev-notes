@@ -1,0 +1,13 @@
+{
+  "name": "dev-notes",
+  "version": "1.0.0",
+  "description": "Code snippets, how-tos and notes during my software development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ninegene",
+  "dependencies": {
+    "harp": "^0.15.2"
+  }
+}
