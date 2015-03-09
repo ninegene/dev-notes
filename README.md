@@ -1,8 +1,8 @@
-# Setup Notes
+# Setup
 
 ````
 $ sudo npm install -g harp
-$ git clone git@.../dev-notes.git
+$ git clone https://github.com/ninegene/dev-notes
 $ cd dev-notes
 $ harp server
 OR
