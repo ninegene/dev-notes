@@ -3,6 +3,9 @@ set -e
 
 git push origin master
 
-# ssh-ng is local alias to ssh into web server
-ssh-ng "/var/www/dev-notes.ninegene.com/dev-notes/dist.sh"
-
+# "dev-notes" is configured in ~/.ssh/config
+ssh dev-notes "
+cd /var/www/dev-notes.ninegene.com/dev-notes;
+git pull origin master;
+./dist.sh
+"
