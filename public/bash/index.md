@@ -88,4 +88,4 @@ More debugging: http://gfxmonk.net/2012/06/17/my-new-bash-script-prelude.html
 ## Check command exists
 ```bash
 $ command -v mycommand >/dev/null 2>&1 || { echo "I need mycommand but it's not installed. Existing." >&2; exit 1; }
-
+```
