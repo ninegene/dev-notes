@@ -149,3 +149,11 @@ if command_exists docker && [ -e /var/run/docker.sock ]; then
 fi
 ```
 
+### Check if url is accessible
+
+```bash
+if curl -sSf https://get.docker.com/ > /dev/null; then
+    wget -qO- https://get.docker.com/ | sh
+    exit $?
+fi
+```
