@@ -89,3 +89,63 @@ More debugging: http://gfxmonk.net/2012/06/17/my-new-bash-script-prelude.html
 ```bash
 $ command -v mycommand >/dev/null 2>&1 || { echo "I need mycommand but it's not installed. Existing." >&2; exit 1; }
 ```
+
+Based on: https://get.docker.com/
+```bash
+command_exists() {
+    command -v "$@" > /dev/null 2>&1
+}
+
+if command_exists docker || command_exists lxc-docker; then
+    echo >&2 'Warning: "docker" or "lxc-docker" command appears to already exist.'
+    echo >&2 'Please ensure that you do not already have docker installed.'
+    echo >&2 'You may press Ctrl+C now to abort this process and rectify this situation.'
+    ( set -x; sleep 20 )
+fi
+```
+
+### Download file
+
+```
+curl=''
+if command_exists curl; then
+    curl='curl -sSL'
+elif command_exists wget; then
+    curl='wget -qO-'
+elif command_exists busybox && busybox --list-modules | grep -q wget; then
+    curl='busybox wget -qO-'
+fi
+```
+
+### Check user name
+```bash
+$ id -un
+```
+
+Based on: https://get.docker.com/
+```bash
+set -e
+
+user=$(id -un 2>/dev/null || true)
+
+sh_c='sh -c'
+if [ "$user" != 'root' ]; then
+    if command_exists sudo; then
+        sh_c='sudo -E sh -c'
+    elif command_exists su; then
+        sh_c='su -c'
+    else
+        echo >&2 'Error: this installer needs the ability to run commands as root.'
+        echo >&2 'We are unable to find either "sudo" or "su" available to make this happen.'
+        exit 1
+    fi
+fi
+
+if command_exists docker && [ -e /var/run/docker.sock ]; then
+    (
+        set -x
+        $sh_c 'docker version'
+    ) || true
+fi
+```
+
